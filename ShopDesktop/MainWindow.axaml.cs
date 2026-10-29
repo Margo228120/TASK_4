@@ -128,13 +128,14 @@ public partial class MainWindow : Window
 
         // Задание 6
         // Подсказка: Здесь мы получаем список товаров в заказе по ClientId, а нужно по Id odrer'а.
-        var items = await Api.GetOrderItems(order.ClientId);
+        var items = await Api.GetOrderItems(order.Id);
         ItemsGrid.ItemsSource = items;
 
         // Задание 7. Посчитай сумму заказа и покажи её в TotalText, например: «Сумма заказа: 24000 ₽»
-
+        var totalSum = items.Sum(item => item.Price * item.Quantity);
+        TotalText.Text = $"Сумма заказа: {totalSum} руб.";
     }
-
+   
     // ============ Часть C. Изменение данных ============
 
     // Задание 8. Кнопка «Добавить» в форме «Новый товар»
