@@ -94,7 +94,7 @@ public partial class MainWindow : Window
 
         // Фильтр 3. Только в наличии (задание 4) — напиши сам по образцу фильтров выше.
         // Подсказка: галочка стоит, если InStockBox.IsChecked == true
-        
+
 
 
         var result = products.ToList();
@@ -135,7 +135,7 @@ public partial class MainWindow : Window
         var totalSum = items.Sum(item => item.Price * item.Quantity);
         TotalText.Text = $"Сумма заказа: {totalSum} руб.";
     }
-   
+
     // ============ Часть C. Изменение данных ============
 
     // Задание 8. Кнопка «Добавить» в форме «Новый товар»
@@ -158,7 +158,11 @@ public partial class MainWindow : Window
 
         // Задание 8. По аналогии с PriceBox выше, сделай проверку на число и запиши результат в stock. StockBox
         int stock = 0;
-
+        if (!int.TryParse(StockBox.Text, out stock))
+        {
+            ShowMessage("Количество должнo быть числом");
+            return;
+        }
         var product = new Product
         {
             Name = NameBox.Text ?? "",
@@ -180,13 +184,40 @@ public partial class MainWindow : Window
         PriceBox.Text = "";
         StockBox.Text = "";
 
-        // Задание 8. 
-        // Подсказка: Добавь перезагрузку таблицы с помощью вызова LoadProducts();
+        await LoadProducts();
     }
+
+    // Задание 8. 
+
+    // Подсказка: Добавь перезагрузку таблицы с помощью вызова LoadProducts();
+
+
+
 
     // Задание 9. Кнопка «Сменить статус». Напиши сам — по образцу задания 8
     private async void SetStatus_Click(object? sender, RoutedEventArgs e)
     {
+
+        var order = OrdersGrid.SelectedItem as Order;
+        if (order == null)
+        {
+            ShowMessage("Выберите заказ");
+            return;
+        }
+        var status = StatusBox.SelectedItem as string;
+        if (status == null)
+        {
+            ShowMessage("Выберите статус");
+            return;
+        }
+        var error = await Api.SetStatus(order.Id, status);
+        if (error != null)
+        {
+            ShowMessage("error");
+            return;
+        }
+        ShowMessage($"Статус заказа {order.Id} обновлен на {status}");
+        await LoadOrders();
 
     }
 }
