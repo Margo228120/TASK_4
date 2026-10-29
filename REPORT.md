@@ -104,5 +104,27 @@
 
 **}**
 
+**задание 4**
+
+&#x20;   **if (InStockBox.IsChecked == true)**
+
+&#x20;   **{**
+
+&#x20;       **products = products.Where(p => p.Stock > 0).ToList();**
+
+&#x20;   **}**
+
+&#x20;   **var result = products.ToList();**
+
+&#x20;   **ItemsGrid.ItemsSource = result;**
+
+**Задание 5**
+
+&#x20;   **FoundText.Text = $"Найдено: {result.Count}";**
+
+**}**
+
+
+
 
 

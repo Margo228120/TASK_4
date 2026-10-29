@@ -93,16 +93,20 @@ public partial class MainWindow : Window
         }
 
         // Фильтр 3. Только в наличии (задание 4) — напиши сам по образцу фильтров выше.
-        // Подсказка: галочка стоит, если InStockBox.IsChecked == true
+        // Подсказка: галочка стоит, если InStockBox.IsChecked == tru
 
-
-
+        if (InStockBox.IsChecked == true)
+        {
+            products = products.Where(p => p.Stock > 0).ToList();
+        }
         var result = products.ToList();
-        ProductsGrid.ItemsSource = result;
+        ItemsGrid.ItemsSource = result;
+        
 
         // Задание 5. Покажи в FoundText, сколько товаров в таблице, например: «Найдено: 3»
         // Подсказка: Замени "НЕИЗВЕСТНО" на количество товаров в таблице. Используй свойство Count у result.
-        FoundText.Text = $"Найдено: {"НЕИЗВЕСТНО"}";
+    
+   FoundText.Text = $"Найдено: {result.Count}";
     }
 
     // ============ Часть B. Заказы ============
