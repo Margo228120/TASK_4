@@ -34,6 +34,8 @@
 
 **Что было самым сложным:**
 
+**задание 9 и его склейка с нуля**
+
 
 
 **///**
@@ -47,6 +49,60 @@
 **var totalSum = items.Sum(item => item.Price \* item.Quantity);**
 
 **TotalText.Text = $"Сумма заказа: {totalSum} руб.";**
+
+**задание 9**
+
+&#x20;   **private async void SetStatus\_Click(object? sender, RoutedEventArgs e)**
+
+&#x20;   **{**
+
+
+
+&#x20;       **var order = OrdersGrid.SelectedItem as Order;**
+
+&#x20;       **if (order == null)**
+
+&#x20;       **{**
+
+&#x20;           **ShowMessage("Выберите заказ");**
+
+&#x20;           **return;**
+
+&#x20;       **}**
+
+&#x20;       **var status = StatusBox.SelectedItem as string;**
+
+&#x20;       **if (status == null)**
+
+&#x20;       **{**
+
+&#x20;           **ShowMessage("Выберите статус");**
+
+&#x20;           **return;**
+
+&#x20;       **}**
+
+&#x20;       **var error = await Api.SetStatus(order.Id, status);**
+
+&#x20;       **if (error != null)**
+
+&#x20;       **{**
+
+&#x20;           **ShowMessage("error");**
+
+&#x20;           **return;**
+
+&#x20;       **}**
+
+&#x20;       **ShowMessage($"Статус заказа {order.Id} обновлен на {status}");**
+
+&#x20;       **await LoadOrders();**
+
+
+
+&#x20;   **}**
+
+**}**
 
 
 
